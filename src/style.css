@@ -1,0 +1,30 @@
+/* SideBar css START */
+
+/* .sideBarContainer {
+	display: flex;
+	flex-direction: column;
+	background-color: #635FC7;
+	height: 100vh;
+} */
+
+/* .listContainer > * {
+	list-style-type: none;
+} */
+li {
+	list-style-type: none;
+}
+
+.allBoards {
+
+	font-weight: 700;
+	font-size: 1.2rem;
+	line-height: 15px;
+	letter-spacing: 2.4px;
+	
+	/* Medium Grey */
+
+	color: #828FA3;
+
+}
+
+/* SideBar css END */
