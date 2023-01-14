@@ -26,6 +26,8 @@ const SideBar = () => {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+
+		background-color: ${(props) => props.theme.background};
 	`;
 
 	const Ul = styled.ul`
@@ -93,6 +95,11 @@ const SideBar = () => {
 	`;
 
 	const NightModeGroup = styled.div`
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 3rem;
+
 		width: 25.1rem;
 		height: 4.8rem;
 
@@ -107,8 +114,8 @@ const SideBar = () => {
 	`;
 	const IconNight = styled.div`
 		background-image: url(${IconDarkTheme});
-		width: 1.8rem;
-		height: 1.8rem;
+		width: 1.6rem;
+		height: 1.6rem;
 	`;
 
 	return (
@@ -154,6 +161,7 @@ const SideBar = () => {
 			<SwitchAndHide>
 				<NightModeGroup>
 					<IconDay />
+					<div>Toggle</div>
 					<IconNight />
 				</NightModeGroup>
 				<div className="hideBar">hideBar</div>

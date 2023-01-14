@@ -8,6 +8,22 @@
 		"side dash";
 }
 
+#light {
+	background-color: white;
+}
+
+#light .main {
+	background-color: white;
+}
+
+#dark {
+	background-color: #2B2C37;
+}
+
+#dark .main {
+	background-color: #2B2C37;
+}
+
 .sideBar {
 	
 }
