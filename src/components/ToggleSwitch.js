@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+import { ThemeContext } from "../contexts/ThemeStore";
+
 import styled from "styled-components";
 
 const Wrapper = styled.label`
@@ -44,9 +47,11 @@ const Input = styled.input`
 
 function ToggleSwitch() {
 	const [checked, setChecked] = useState(false);
+	const { toggleTheme } = useContext(ThemeContext);
 
 	const checkCheckBox = (e) => {
 		setChecked(e.target.checked);
+		toggleTheme(checked ? "light" : "dark");
 	};
 
 	return (
