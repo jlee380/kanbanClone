@@ -10,6 +10,8 @@ import DarkMode from "./DarkMode";
 
 const SideBarContainer = styled.div`
 	display: flex;
+	display: ${(props) => (props.toggleSidebar ? "" : "none")};
+
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: space-between;
@@ -23,9 +25,7 @@ const SwitchAndHide = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
-	margin: 2rem;
-	padding: 2rem;
+	width: 100%;
 	gap: 2rem;
 
 	border: 1px solid;
@@ -34,10 +34,11 @@ const SwitchAndHide = styled.div`
 const SideBar = () => {
 	const [boards, setBoards] = useState([]);
 	const [active, setActive] = useState(-1);
+	const [toggleSidebar, setToggleSidebar] = useState(true);
 
 	useEffect(() => {
 		setBoards(response.boards);
-	}, []);
+	}, [toggleSidebar]);
 
 	const addBoard = () => {
 		const newBoardList = [...boards];
@@ -46,7 +47,7 @@ const SideBar = () => {
 	};
 
 	return (
-		<SideBarContainer>
+		<SideBarContainer toggleSidebar={toggleSidebar}>
 			<BoardsList
 				setActive={setActive}
 				active={active}
@@ -55,7 +56,10 @@ const SideBar = () => {
 			/>
 			<SwitchAndHide>
 				<DarkMode />
-				<HideSidebar />
+				<HideSidebar
+					toggleSidebar={toggleSidebar}
+					setToggleSidebar={setToggleSidebar}
+				/>
 			</SwitchAndHide>
 		</SideBarContainer>
 	);

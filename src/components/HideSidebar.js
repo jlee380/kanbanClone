@@ -6,13 +6,15 @@ const HideBarAndIcon = styled.div`
 	display: flex;
 	align-items: center;
 
-	gap: 1.2rem;
-	width: 17.6rem;
+	width: 20rem;
 	height: 4.8rem;
 	border-radius: 0px 100px 100px 0px;
 	border: none;
+	margin-left: -12rem;
 
-	margin-left: 2.5rem;
+	& > * {
+		margin-left: 3.5rem;
+	}
 
 	&:hover {
 		background: #f4f7fd !important;
@@ -31,12 +33,17 @@ const HideBar = styled.div`
 	color: #828fa3;
 	font-weight: 700;
 	font-size: 1.5rem;
+	margin-left: 1rem;
 `;
 
-function HideSidebar() {
+function HideSidebar({ toggleSidebar, setToggleSidebar }) {
+	const hideSidebar = () => {
+		setToggleSidebar(!toggleSidebar);
+	};
+
 	return (
 		<div>
-			<HideBarAndIcon>
+			<HideBarAndIcon onClick={hideSidebar}>
 				<IconHideBar />
 				<HideBar>Hide Sidebar</HideBar>
 			</HideBarAndIcon>
