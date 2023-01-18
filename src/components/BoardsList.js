@@ -40,9 +40,6 @@ const IconAndText = styled.a`
 `;
 
 const Li = styled.li`
-	font-family: "Plus Jakarta Sans";
-	font-style: normal;
-	font-weight: 700;
 	font-size: 15px;
 	line-height: 19px;
 
@@ -71,7 +68,7 @@ function BoardsList({ setActive, active, addBoard, boards }) {
 					}}>{`ALL BOARDS (${boardNum})`}</li>
 				{boards.map((board, i) => (
 					<IconAndText
-						onClick={() => setActive(i)}
+						onClick={(e) => setActive(i)}
 						active={active}
 						style={{
 							backgroundColor:

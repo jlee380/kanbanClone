@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import IconUnhide from "../assets/icon-show-sidebar.svg";
 
+const Wrapper = styled.div`
+	display: ${(props) => (props.toggleSidebar ? "none" : null)};
+`;
+
 const UnhideContainer = styled.div`
 	display: flex;
 	justify-content: center;
@@ -9,6 +13,7 @@ const UnhideContainer = styled.div`
 	width: 5.6rem;
 	height: 4.8rem;
 	position: absolute;
+	left: 0.1rem;
 	top: 60rem;
 	background: #635fc7;
 	border-radius: 0px 100px 100px 0px;
@@ -23,11 +28,15 @@ const UnhideBar = styled.span`
 	height: 1rem;
 `;
 
-function UnhideButton() {
+function UnhideButton({ toggleSidebar, setToggleSidebar }) {
 	return (
-		<UnhideContainer>
-			<UnhideBar />
-		</UnhideContainer>
+		<Wrapper
+			onClick={() => setToggleSidebar(!toggleSidebar)}
+			toggleSidebar={toggleSidebar}>
+			<UnhideContainer>
+				<UnhideBar />
+			</UnhideContainer>
+		</Wrapper>
 	);
 }
 

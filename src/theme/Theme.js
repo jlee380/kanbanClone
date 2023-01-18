@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { ThemeContext } from "../contexts/ThemeStore";
+import { GlobalStyles } from "./GlobalStyles";
 
 const themes = {
 	dark: {
@@ -15,19 +16,11 @@ const themes = {
 	},
 };
 
-const GlobalStyle = createGlobalStyle`
-body {
-    // background: ${({ theme }) => theme.body};
-    // color: ${({ theme }) => theme.text};
-    transition: all 0.50s linear;
-  }
-`;
-
 const Theme = ({ children }) => {
 	const { theme } = useContext(ThemeContext);
 	return (
 		<ThemeProvider theme={themes[theme]}>
-			<GlobalStyle />
+			<GlobalStyles />
 			{children}
 		</ThemeProvider>
 	);
