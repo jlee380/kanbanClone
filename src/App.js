@@ -12,10 +12,9 @@ import Dashboard from "./components/Dashboard";
 import UnhideButton from "./components/UnhideBar";
 
 const MainApp = styled.div`
-	border: 1px solid black;
 	display: grid;
-	grid-template-columns: 30% 70%;
-	grid-template-rows: 10% 90%;
+	grid-template-columns: 30.1rem;
+	grid-template-rows: 9.7rem;
 	grid-template-areas:
 		"headerArea headerArea"
 		"side dash";
@@ -31,12 +30,16 @@ const MainApp = styled.div`
 	& :nth-child(3) {
 		grid-area: dash;
 	}
+
+	&: > * {
+		min-width: 0px;
+	}
 `;
 
 function App() {
 	const [toggleSidebar, setToggleSidebar] = useState(true);
 	const [boards, setBoards] = useState([""]);
-	const [active, setActive] = useState(null);
+	const [active, setActive] = useState(0);
 	const [loading, setLoading] = useState(true);
 
 	const addBoard = () => {
@@ -47,6 +50,7 @@ function App() {
 
 	useEffect(() => {
 		setBoards(response.boards);
+		console.log(boards);
 		setLoading(false);
 	}, []);
 

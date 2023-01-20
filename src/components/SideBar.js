@@ -5,7 +5,7 @@ import "../style.css";
 
 import HideSidebar from "./HideSidebar";
 import BoardsList from "./BoardsList";
-import DarkMode from "./DarkMode";
+import DarkModeBar from "./DarkModeBar";
 
 const SideBarContainer = styled.div`
 	display: flex;
@@ -16,14 +16,15 @@ const SideBarContainer = styled.div`
 	justify-content: space-between;
 	padding-top: 4rem;
 
-	background-color: ${(props) => props.theme.background};
+	background-color: ${(props) => props.theme.background.grayDark};
+
+	border-right: 1px solid;
 `;
 
 const SwitchAndHide = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 100%;
 	gap: 2rem;
 
 	border: 1px solid;
@@ -47,7 +48,7 @@ const SideBar = ({
 					boards={boards}
 				/>
 				<SwitchAndHide>
-					<DarkMode />
+					<DarkModeBar />
 					<HideSidebar
 						toggleSidebar={toggleSidebar}
 						setToggleSidebar={setToggleSidebar}

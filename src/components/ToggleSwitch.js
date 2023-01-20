@@ -4,7 +4,7 @@ import { ThemeContext } from "../contexts/ThemeStore";
 
 import styled from "styled-components";
 
-const Wrapper = styled.label`
+const ToggleContainer = styled.label`
 	display: flex;
 	align-items: center;
 	cursor: pointer;
@@ -55,10 +55,10 @@ function ToggleSwitch() {
 	};
 
 	return (
-		<Wrapper>
+		<ToggleContainer>
 			<Input type="checkbox" checked={checked} onChange={checkCheckBox} />
 			<Switch />
-		</Wrapper>
+		</ToggleContainer>
 	);
 }
 

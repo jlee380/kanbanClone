@@ -9,10 +9,14 @@ const Ul = styled.ul`
 
 	li,
 	span {
-		margin-left: 32px;
+		margin-left: 3.2rem;
 	}
 
-	border: 1px solid;
+	border: 0.1rem solid;
+`;
+
+const BoardsNum = styled.p`
+	${(props) => console.log(props)}
 `;
 
 const IconAndText = styled.a`
@@ -22,7 +26,7 @@ const IconAndText = styled.a`
 	width: 27.6rem;
 	height: 4.8rem;
 
-	border-radius: 0px 100px 100px 0px;
+	border-radius: 0rem 10rem 10rem 0rem;
 	border: none;
 
 	cursor: -webkit-grab;
@@ -40,32 +44,28 @@ const IconAndText = styled.a`
 `;
 
 const Li = styled.li`
-	font-size: 15px;
-	line-height: 19px;
+	font-size: 1.5rem;
+	line-height: 1.9rem;
 
 	color: ${(props) => (props.primary ? "#635fc7" : "#828fa3")};
 `;
 
 const IconBoard = styled.span`
 	background-image: url(${IconBoards});
-	width: 16px;
-	height: 16px;
+	width: 1.6rem;
+	height: 1.6rem;
 `;
 
 const BoardDiv = styled.div`
-	margin-left: -16px;
+	margin-left: -1.6rem;
 `;
 
 function BoardsList({ setActive, active, addBoard, boards }) {
 	const boardNum = boards.length;
 	return (
-		<div>
+		<>
 			<Ul>
-				<li
-					className="allBoards"
-					style={{
-						marginBottom: 19,
-					}}>{`ALL BOARDS (${boardNum})`}</li>
+				<BoardsNum>{`ALL BOARDS (${boardNum})`}</BoardsNum>
 				{boards.map((board, i) => (
 					<IconAndText
 						onClick={(e) => setActive(i)}
@@ -100,7 +100,7 @@ function BoardsList({ setActive, active, addBoard, boards }) {
 					</Li>
 				</IconAndText>
 			</Ul>
-		</div>
+		</>
 	);
 }
 
