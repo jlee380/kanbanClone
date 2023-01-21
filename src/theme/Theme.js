@@ -19,7 +19,18 @@ const themes = {
 		title: "#ff6347",
 		text: "#000",
 	},
-	colors: {},
+};
+
+const styles = {
+	colors: {
+		mainPurple: "#635FC7",
+		hoverPurpls: "#A8A4FF",
+		white: "#FFFFFF",
+		balck: "#000112",
+		lineColor: "#E4EBFA",
+		red: "#EA5555",
+		hoverRed: "#FF9898",
+	},
 	headings: {
 		XL: {
 			fontSize: "2.4rem",

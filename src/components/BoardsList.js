@@ -15,9 +15,7 @@ const Ul = styled.ul`
 	border: 0.1rem solid;
 `;
 
-const BoardsNum = styled.p`
-	${(props) => console.log(props)}
-`;
+const BoardsNum = styled.p``;
 
 const IconAndText = styled.a`
 	display: flex;
