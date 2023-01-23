@@ -7,6 +7,7 @@ import IconEdit from "../assets/icon-vertical-ellipsis.svg";
 import Button from "./Button";
 
 import { ThemeContext } from "../contexts/ThemeStore";
+import { BoardContext } from "../App";
 
 const HeaderContainer = styled.div`
 	display: flex;
@@ -50,8 +51,6 @@ const Wrapper = styled.div`
 	align-items: center;
 	gap: 2rem;
 	margin-right: 2rem;
-
-	cursor: pointer;
 `;
 
 const EditButton = styled.span`
@@ -61,8 +60,9 @@ const EditButton = styled.span`
 	cursor: pointer;
 `;
 
-function Header({ boards, active }) {
+function Header() {
 	const { theme } = useContext(ThemeContext);
+	const { boards, active } = useContext(BoardContext);
 	return (
 		<>
 			<HeaderContainer>

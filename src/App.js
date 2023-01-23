@@ -1,15 +1,16 @@
 import "./App.css";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import Theme from "./theme/Theme";
 import { ThemeStore } from "./contexts/ThemeStore";
 
-import response from "./data.json";
+import data from "./data.json";
 
 import SideBar from "./components/SideBar";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import UnhideButton from "./components/UnhideBar";
+import ModalEditTasks from "./components/ModalEditTasks";
 
 const MainApp = styled.div`
 	display: grid;
@@ -36,11 +37,14 @@ const MainApp = styled.div`
 	}
 `;
 
+export const BoardContext = createContext();
+
 function App() {
 	const [toggleSidebar, setToggleSidebar] = useState(true);
 	const [boards, setBoards] = useState([""]);
 	const [active, setActive] = useState(0);
 	const [loading, setLoading] = useState(true);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const addBoard = () => {
 		const newBoardList = [...boards];
@@ -49,7 +53,7 @@ function App() {
 	};
 
 	useEffect(() => {
-		setBoards(response.boards);
+		setBoards(data.boards);
 		console.log(boards);
 		setLoading(false);
 	}, []);
@@ -60,23 +64,26 @@ function App() {
 				{loading ? (
 					<div>loading...</div>
 				) : (
-					<MainApp>
-						<Header boards={boards} active={active} />
-						<SideBar
-							addBoard={addBoard}
-							boards={boards}
-							toggleSidebar={toggleSidebar}
-							setToggleSidebar={setToggleSidebar}
-							active={active}
-							setActive={setActive}
-						/>
-						<Dashboard boards={boards} active={active} />
-
-						<UnhideButton
-							toggleSidebar={toggleSidebar}
-							setToggleSidebar={setToggleSidebar}
-						/>
-					</MainApp>
+					<BoardContext.Provider
+						value={{
+							data,
+							toggleSidebar,
+							setToggleSidebar,
+							boards,
+							setBoards,
+							active,
+							setActive,
+							isModalOpen,
+							setIsModalOpen,
+						}}>
+						{isModalOpen ? <ModalEditTasks /> : null}
+						<MainApp>
+							<Header />
+							<SideBar />
+							<Dashboard />
+							<UnhideButton />
+						</MainApp>
+					</BoardContext.Provider>
 				)}
 			</Theme>
 		</ThemeStore>

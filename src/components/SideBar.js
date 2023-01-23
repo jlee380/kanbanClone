@@ -6,6 +6,8 @@ import "../style.css";
 import HideSidebar from "./HideSidebar";
 import BoardsList from "./BoardsList";
 import DarkModeBar from "./DarkModeBar";
+import { useContext } from "react";
+import { BoardContext } from "../App";
 
 const SideBarContainer = styled.div`
 	display: flex;
@@ -30,14 +32,15 @@ const SwitchAndHide = styled.div`
 	border: 1px solid;
 `;
 
-const SideBar = ({
-	toggleSidebar,
-	setToggleSidebar,
-	addBoard,
-	boards,
-	active,
-	setActive,
-}) => {
+const SideBar = () => {
+	const {
+		toggleSidebar,
+		setToggleSidebar,
+		addBoard,
+		boards,
+		active,
+		setActive,
+	} = useContext(BoardContext);
 	return (
 		<>
 			<SideBarContainer toggleSidebar={toggleSidebar}>

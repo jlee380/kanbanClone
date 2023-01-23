@@ -1,5 +1,7 @@
 import React from "react";
+import { useContext } from "react";
 import styled from "styled-components";
+import { BoardContext } from "../App";
 import IconUnhide from "../assets/icon-show-sidebar.svg";
 
 const Wrapper = styled.div`
@@ -28,7 +30,8 @@ const UnhideBar = styled.span`
 	height: 1rem;
 `;
 
-function UnhideButton({ toggleSidebar, setToggleSidebar }) {
+function UnhideButton() {
+	const { toggleSidebar, setToggleSidebar } = useContext(BoardContext);
 	return (
 		<Wrapper
 			onClick={() => setToggleSidebar(!toggleSidebar)}
