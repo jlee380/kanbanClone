@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled, { withTheme } from "styled-components";
 import LogoLight from "../assets/logo-light.svg";
 import LogoDark from "../assets/logo-dark.svg";
-import IconEdit from "../assets/icon-vertical-ellipsis.svg";
+import IconDots from "../assets/icon-vertical-ellipsis.svg";
 
 import Button from "./Button";
 
@@ -54,7 +54,7 @@ const Wrapper = styled.div`
 `;
 
 const EditButton = styled.span`
-	background-image: url(${IconEdit});
+	background-image: url(${IconDots});
 	width: 0.5rem;
 	height: 2rem;
 	cursor: pointer;
@@ -62,7 +62,7 @@ const EditButton = styled.span`
 
 function Header() {
 	const { theme } = useContext(ThemeContext);
-	const { boards, active } = useContext(BoardContext);
+	const { boards, active, setIsModalOpen } = useContext(BoardContext);
 	return (
 		<>
 			<HeaderContainer>
@@ -74,7 +74,9 @@ function Header() {
 						{active || active === 0 ? boards[active].name : null}
 					</SelectedBoardName>
 					<Wrapper>
-						<Button>+Add New Task</Button>
+						<Button onClick={() => setIsModalOpen("add_new_task")}>
+							+Add New Task
+						</Button>
 						<EditButton />
 					</Wrapper>
 				</RightContainer>

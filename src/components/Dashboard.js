@@ -14,35 +14,40 @@ const Col = styled.div`
 `;
 
 function Dashboard() {
-	const { boards, active, setIsModalOpen, isModalOpen } =
+	const { boards, active, setIsModalOpen, selectedTask, setSelectedTask } =
 		useContext(BoardContext);
 
 	const columns = boards[active].columns;
 	// console.log(columns.map((c) => console.log(c)));
 
-	const handleSubTasks = (e, value) => {
-		// console.log(value);
-		setIsModalOpen(!isModalOpen);
-	};
+	const handleSubTasks = (e, value) => {};
 
 	return (
 		<>
 			<DashboardContainer>
-				{columns.map((col, i) => (
-					<Col key={i}>
-						{col.name}
+				{columns.map((col, colId) => (
+					<Col key={colId}>
+						{col.name} {`(${col.tasks.length})`}
 						<ul>
-							{col.tasks.map((c, i) => (
+							{col.tasks.map((item, i) => (
 								<li
 									key={i}
-									value={c}
-									onClick={(value) => handleSubTasks(value)}>
-									{c.title}
+									onClick={() => {
+										setSelectedTask(
+											item,
+											(item.key = colId),
+											(item.status = col.name),
+											(item.index = i)
+										);
+										setIsModalOpen("view_task");
+									}}>
+									{item.title}
 								</li>
 							))}
 						</ul>
 					</Col>
 				))}
+				{console.log(selectedTask)}
 			</DashboardContainer>
 			{/* <table>
 				<tr>

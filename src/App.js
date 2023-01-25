@@ -10,7 +10,7 @@ import SideBar from "./components/SideBar";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import UnhideButton from "./components/UnhideBar";
-import ModalEditTasks from "./components/ModalEditTasks";
+import Modal from "./components/Modal";
 
 const MainApp = styled.div`
 	display: grid;
@@ -44,7 +44,8 @@ function App() {
 	const [boards, setBoards] = useState([""]);
 	const [active, setActive] = useState(0);
 	const [loading, setLoading] = useState(true);
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(null);
+	const [selectedTask, setSelectedTask] = useState({});
 
 	const addBoard = () => {
 		const newBoardList = [...boards];
@@ -54,7 +55,6 @@ function App() {
 
 	useEffect(() => {
 		setBoards(data.boards);
-		console.log(boards);
 		setLoading(false);
 	}, []);
 
@@ -75,8 +75,11 @@ function App() {
 							setActive,
 							isModalOpen,
 							setIsModalOpen,
+							selectedTask,
+							setSelectedTask,
 						}}>
-						{isModalOpen ? <ModalEditTasks /> : null}
+						{isModalOpen ? <Modal /> : null}
+						{console.log(isModalOpen)}
 						<MainApp>
 							<Header />
 							<SideBar />
