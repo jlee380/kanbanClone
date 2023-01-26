@@ -8,8 +8,9 @@ export const GlobalStyles = createGlobalStyle`
 
 		
 	}
-	div, a {
+	div {
 		font-family:'Plus Jakarta Sans', sans-serif;
+		font-style: normal;
 		font-weight: 700;
 		font-size: 15px;
 		line-height: 19px;

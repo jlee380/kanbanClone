@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { BoardContext } from "../App";
+import AddNewTask from "./Forms/AddNewTask";
 import ViewTask from "./ViewTask";
 
 const Overlay = styled.div`
@@ -31,11 +32,15 @@ const ModalContainer = styled.div`
 `;
 
 function Modal() {
-	const { isModalOpen, setIsModalOpen } = useContext(BoardContext);
+	const { isModalOpen, setIsModalOpen, boards, active } =
+		useContext(BoardContext);
 	return (
 		<Overlay>
-			<ModalContainer onClick={() => setIsModalOpen(null)}>
-				{isModalOpen === "view_task" ? <ViewTask /> : null}
+			<ModalContainer>
+				{isModalOpen === "view_task" ? (
+					<ViewTask boards={boards} active={active} />
+				) : null}
+				{isModalOpen === "add_new_task" ? <AddNewTask /> : null}
 			</ModalContainer>
 		</Overlay>
 	);

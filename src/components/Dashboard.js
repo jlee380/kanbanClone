@@ -47,7 +47,6 @@ function Dashboard() {
 						</ul>
 					</Col>
 				))}
-				{console.log(selectedTask)}
 			</DashboardContainer>
 			{/* <table>
 				<tr>

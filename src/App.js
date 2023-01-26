@@ -46,6 +46,7 @@ function App() {
 	const [loading, setLoading] = useState(true);
 	const [isModalOpen, setIsModalOpen] = useState(null);
 	const [selectedTask, setSelectedTask] = useState({});
+	const [numOfCompletedTasks, setNumOfCompletedTasks] = useState(0);
 
 	const addBoard = () => {
 		const newBoardList = [...boards];
@@ -77,9 +78,10 @@ function App() {
 							setIsModalOpen,
 							selectedTask,
 							setSelectedTask,
+							numOfCompletedTasks,
+							setNumOfCompletedTasks,
 						}}>
 						{isModalOpen ? <Modal /> : null}
-						{console.log(isModalOpen)}
 						<MainApp>
 							<Header />
 							<SideBar />
