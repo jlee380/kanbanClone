@@ -8,11 +8,11 @@ export const GlobalStyles = createGlobalStyle`
 
 		
 	}
-	div {
+	div, h3 {
 		font-family:'Plus Jakarta Sans', sans-serif;
 		font-style: normal;
 		font-weight: 700;
-		font-size: 15px;
-		line-height: 19px;
+		font-size: 1.5rem;
+		line-height: 1.9rem;
 	}
 `;

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { COLORS } from "../theme/styles";
 import IconCheck from "../assets/icon-check.svg";
+import { BoardContext } from "../App";
 
 const CheckboxContainer = styled.div`
 	display: flex;
@@ -26,8 +27,9 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
 	position: absolute;
 	white-space: nowrap;
 	width: 1px;
+	flex-shrink: 1;
 `;
-// (props.checked ? "black" : "black")
+
 const StyledCheckbox = styled.div`
 	display: flex;
 	justify-content: center;
@@ -50,13 +52,54 @@ const StyledCheckbox = styled.div`
 	}
 `;
 
-const CheckBox = ({ className, title }) => {
+const TitleSpan = styled.span`
+	margin-left: 1.6rem;
+	text-decoration: ${(props) => (props.checked ? "line-through" : null)};
+	color: ${(props) => (props.checked ? `${COLORS.MEDIUMGRAY}` : null)};
+`;
+
+const CheckBox = ({ className, subTask, subTasks, setSubTasks }) => {
+	const title = subTask.title;
+	const { completedTasks, setCompletedTasks } = useContext(BoardContext);
+
 	const [checked, setChecked] = useState(false);
+
+	useEffect(() => {
+		if (subTask.isCompleted) {
+			setChecked(true);
+		}
+	}, [completedTasks]);
 
 	const isCheckedChecked = (e) => {
 		setChecked(e.target.checked);
+		if (!checked) {
+			subTasks.map((sub, i) =>
+				sub.title === title ? updateSubTasksToCompleted(sub, i) : null
+			);
+		} else {
+			subTasks.map((sub, i) =>
+				sub.title === title ? updateSubTasksToUncompleted(sub, i) : null
+			);
+		}
+		console.log(subTasks, title, checked);
 	};
-	console.log(checked);
+
+	const updateSubTasksToCompleted = (sub, i) => {
+		const updatedSubTask = [...subTasks];
+		sub.isCompleted = true;
+
+		updatedSubTask.splice(i, 1, sub);
+		setSubTasks(updatedSubTask);
+	};
+
+	const updateSubTasksToUncompleted = (sub, i) => {
+		const updatedSubTask = [...subTasks];
+		sub.isCompleted = false;
+
+		updatedSubTask.splice(i, 1, sub);
+		setSubTasks(updatedSubTask);
+	};
+
 	return (
 		<>
 			<CheckboxContainer className={className}>
@@ -64,7 +107,7 @@ const CheckBox = ({ className, title }) => {
 				<StyledCheckbox checked={checked} onChange={isCheckedChecked}>
 					<Icon />
 				</StyledCheckbox>
-				<span style={{ marginLeft: "1.6rem" }}>{title}</span>
+				<TitleSpan checked={checked}>{title}</TitleSpan>
 			</CheckboxContainer>
 		</>
 	);

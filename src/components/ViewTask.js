@@ -11,7 +11,10 @@ const TitleAndEditContainer = styled.div`
 	justify-content: space-between;
 `;
 
-const TaskTitle = styled.h3``;
+const TaskTitle = styled.h3`
+	font-size: 1.8rem;
+	line-height: 2.3rem;
+`;
 
 const EditButton = styled.span`
 	background-image: url(${IconDots});
@@ -21,12 +24,18 @@ const EditButton = styled.span`
 
 const Description = styled.div`
 	font-weight: 500;
+	font-size: 1.3rem;
+	line-height: 2.3rem;
+	color: ${COLORS.MEDIUMGRAY};
 `;
 
 const SubTaskContainer = styled.div``;
 
 const SubTaskCount = styled.div`
+	font-size: 1.2rem;
+	line-height: 1.5rem;
 	margin-bottom: 1.6rem;
+	color: ${COLORS.MEDIUMGRAY};
 `;
 
 const ListOfSubTasks = styled.div``;
@@ -41,7 +50,11 @@ const Label = styled.label``;
 
 const StatusContainer = styled.div``;
 
-const StatusHeading = styled.div``;
+const StatusHeading = styled.div`
+	font-size: 1.2rem;
+	line-height: 1.5rem;
+	color: ${COLORS.MEDIUMGRAY};
+`;
 const StatusDropDown = styled.div``;
 
 const DropDown = ({ columns }) => {
@@ -55,22 +68,21 @@ const DropDown = ({ columns }) => {
 };
 
 function ViewTask() {
+	const [subTasks, setSubTasks] = useState([]);
 	const {
 		selectedTask,
-		numOfCompletedTasks,
-		setNumOfCompletedTasks,
+		completedTasks,
+		setCompletedTasks,
 		boards,
 		active,
 		setIsModalOpen,
 	} = useContext(BoardContext);
 
 	useEffect(() => {
-		setNumOfCompletedTasks(
-			subTasks.filter((sub) => sub.isCompleted === true).length
-		);
-	}, [selectedTask]);
+		setSubTasks(selectedTask.subtasks);
+		setCompletedTasks(subTasks.filter((sub) => sub.isCompleted === true));
+	}, [selectedTask, subTasks]);
 
-	const subTasks = selectedTask.subtasks;
 	const columns = boards[active].columns;
 
 	return (
@@ -81,14 +93,23 @@ function ViewTask() {
 			</TitleAndEditContainer>
 			<Description>{selectedTask.description}</Description>
 			<SubTaskContainer>
-				<SubTaskCount>{`SubTasks ${numOfCompletedTasks} of ${subTasks.length}`}</SubTaskCount>
+				<SubTaskCount>{`SubTasks ${completedTasks.length} of ${subTasks.length}`}</SubTaskCount>
 				<ListOfSubTasks>
 					<SubTask>
-						{subTasks.map((subTask, i) => (
-							<Label key={i}>
-								<CheckBox title={subTask.title} />
-							</Label>
-						))}
+						{console.log(subTasks)}
+						{subTasks ? (
+							subTasks.map((subTask, i) => (
+								<Label key={i}>
+									<CheckBox
+										subTask={subTask}
+										subTasks={subTasks}
+										setSubTasks={setSubTasks}
+									/>
+								</Label>
+							))
+						) : (
+							<div>Loading...</div>
+						)}
 					</SubTask>
 				</ListOfSubTasks>
 			</SubTaskContainer>
