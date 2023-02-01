@@ -47,6 +47,7 @@ function App() {
 	const [isModalOpen, setIsModalOpen] = useState(null);
 	const [selectedTask, setSelectedTask] = useState({});
 	const [completedTasks, setCompletedTasks] = useState([]);
+	const [columns, setColumns] = useState([]);
 
 	const addBoard = () => {
 		const newBoardList = [...boards];
@@ -55,6 +56,7 @@ function App() {
 	};
 
 	useEffect(() => {
+		setColumns(data.boards[active].columns);
 		setBoards(data.boards);
 		setLoading(false);
 	}, []);
@@ -80,6 +82,8 @@ function App() {
 							setSelectedTask,
 							completedTasks,
 							setCompletedTasks,
+							columns,
+							setColumns,
 						}}>
 						{isModalOpen ? <Modal /> : null}
 						<MainApp>

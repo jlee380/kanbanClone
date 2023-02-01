@@ -81,7 +81,6 @@ const CheckBox = ({ className, subTask, subTasks, setSubTasks }) => {
 				sub.title === title ? updateSubTasksToUncompleted(sub, i) : null
 			);
 		}
-		console.log(subTasks, title, checked);
 	};
 
 	const updateSubTasksToCompleted = (sub, i) => {

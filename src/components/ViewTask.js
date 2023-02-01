@@ -1,10 +1,11 @@
 import { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
 import { BoardContext } from "../App";
+import { COLORS } from "../theme/styles";
 
 import IconDots from "../assets/icon-vertical-ellipsis.svg";
-import { COLORS } from "../theme/styles";
 import CheckBox from "./CheckBox";
+import StatusDropDown from "./StatusDropDown";
 
 const TitleAndEditContainer = styled.div`
 	display: flex;
@@ -55,35 +56,16 @@ const StatusHeading = styled.div`
 	line-height: 1.5rem;
 	color: ${COLORS.MEDIUMGRAY};
 `;
-const StatusDropDown = styled.div``;
-
-const DropDown = ({ columns }) => {
-	return (
-		<select>
-			{columns.map((column, i) => (
-				<option key={i}>{column.name}</option>
-			))}
-		</select>
-	);
-};
 
 function ViewTask() {
 	const [subTasks, setSubTasks] = useState([]);
-	const {
-		selectedTask,
-		completedTasks,
-		setCompletedTasks,
-		boards,
-		active,
-		setIsModalOpen,
-	} = useContext(BoardContext);
+	const { selectedTask, completedTasks, setCompletedTasks, setIsModalOpen } =
+		useContext(BoardContext);
 
 	useEffect(() => {
 		setSubTasks(selectedTask.subtasks);
 		setCompletedTasks(subTasks.filter((sub) => sub.isCompleted === true));
-	}, [selectedTask, subTasks]);
-
-	const columns = boards[active].columns;
+	}, []);
 
 	return (
 		<>
@@ -96,7 +78,6 @@ function ViewTask() {
 				<SubTaskCount>{`SubTasks ${completedTasks.length} of ${subTasks.length}`}</SubTaskCount>
 				<ListOfSubTasks>
 					<SubTask>
-						{console.log(subTasks)}
 						{subTasks ? (
 							subTasks.map((subTask, i) => (
 								<Label key={i}>
@@ -115,7 +96,7 @@ function ViewTask() {
 			</SubTaskContainer>
 			<StatusContainer>
 				<StatusHeading>Current Status</StatusHeading>
-				<DropDown columns={columns}></DropDown>
+				<StatusDropDown></StatusDropDown>
 			</StatusContainer>
 		</>
 	);
