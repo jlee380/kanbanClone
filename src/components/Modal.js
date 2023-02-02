@@ -32,8 +32,7 @@ const ModalContainer = styled.div`
 `;
 
 function Modal() {
-	const { isModalOpen, setIsModalOpen, boards, active } =
-		useContext(BoardContext);
+	const { isModalOpen, boards, active } = useContext(BoardContext);
 	return (
 		<Overlay>
 			<ModalContainer>

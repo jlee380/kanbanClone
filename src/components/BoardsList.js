@@ -66,7 +66,7 @@ function BoardsList({ setActive, active, addBoard, boards }) {
 				<BoardsNum>{`ALL BOARDS (${boardNum})`}</BoardsNum>
 				{boards.map((board, i) => (
 					<IconAndText
-						onClick={(e) => setActive(i)}
+						onClick={() => setActive(i)}
 						active={active}
 						style={{
 							backgroundColor:

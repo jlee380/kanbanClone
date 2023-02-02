@@ -58,13 +58,23 @@ const StatusHeading = styled.div`
 `;
 
 function ViewTask() {
-	const [subTasks, setSubTasks] = useState([]);
 	const { selectedTask, completedTasks, setCompletedTasks, setIsModalOpen } =
 		useContext(BoardContext);
+	const [subTasks, setSubTasks] = useState(selectedTask.subtasks);
 
 	useEffect(() => {
+		console.log(completedTasks);
 		setSubTasks(selectedTask.subtasks);
 		setCompletedTasks(subTasks.filter((sub) => sub.isCompleted === true));
+
+		console.log(
+			"completedTask:",
+			completedTasks,
+			"subTasks:",
+			subTasks,
+			"selectedTask:",
+			selectedTask
+		);
 	}, []);
 
 	return (

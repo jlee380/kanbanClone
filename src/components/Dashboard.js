@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { BoardContext } from "../App";
 
@@ -17,9 +17,7 @@ function Dashboard() {
 	const { setIsModalOpen, setSelectedTask, columns } =
 		useContext(BoardContext);
 
-	useEffect(() => {
-		// console.log(columns);
-	}, [columns]);
+	useEffect(() => {}, [columns]);
 
 	return (
 		<>

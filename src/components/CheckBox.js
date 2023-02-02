@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { COLORS } from "../theme/styles";
 import IconCheck from "../assets/icon-check.svg";
 import { BoardContext } from "../App";
+import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
 
 const CheckboxContainer = styled.div`
 	display: flex;
@@ -65,36 +66,29 @@ const CheckBox = ({ className, subTask, subTasks, setSubTasks }) => {
 	const [checked, setChecked] = useState(false);
 
 	useEffect(() => {
+		console.log(subTask, subTasks);
 		if (subTask.isCompleted) {
 			setChecked(true);
 		}
-	}, [completedTasks]);
+	}, []);
+
+	useEffect(() => {
+		let check = true;
+		checked ? (check = true) : (check = false);
+
+		subTasks.map((sub, i) =>
+			sub.title === title ? updateSubTasks(sub, i, check) : null
+		);
+	}, []);
 
 	const isCheckedChecked = (e) => {
 		setChecked(e.target.checked);
-		if (!checked) {
-			subTasks.map((sub, i) =>
-				sub.title === title ? updateSubTasksToCompleted(sub, i) : null
-			);
-		} else {
-			subTasks.map((sub, i) =>
-				sub.title === title ? updateSubTasksToUncompleted(sub, i) : null
-			);
-		}
 	};
 
-	const updateSubTasksToCompleted = (sub, i) => {
+	const updateSubTasks = (sub, i, boolVal) => {
 		const updatedSubTask = [...subTasks];
-		sub.isCompleted = true;
 
-		updatedSubTask.splice(i, 1, sub);
-		setSubTasks(updatedSubTask);
-	};
-
-	const updateSubTasksToUncompleted = (sub, i) => {
-		const updatedSubTask = [...subTasks];
-		sub.isCompleted = false;
-
+		sub.isCompleted = boolVal;
 		updatedSubTask.splice(i, 1, sub);
 		setSubTasks(updatedSubTask);
 	};

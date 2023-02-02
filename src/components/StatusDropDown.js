@@ -1,19 +1,12 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { BoardContext } from "../App";
 
 function StatusDropDown() {
-	const { selectedTask, setSelectedTask, columns, setColumns } =
-		useContext(BoardContext);
+	const { selectedTask, columns, setColumns } = useContext(BoardContext);
 
-	const [currentStatus, setCurrentStatus] = useState("");
-	const [currentColumn, setCurrentColumn] = useState({});
+	const [currentStatus, setCurrentStatus] = useState(selectedTask.status);
 
-	useEffect(() => {
-		console.log(columns);
-		setCurrentStatus(selectedTask.status);
-	}, [columns]);
-
-	const removeTaskFromCurrentColumn = (removedTask) => {
+	const updateCurrentColumn = (removedTask) => {
 		const targetColumn = removedTask.status;
 
 		const taskRemovedColumn = columns.map((col, i) => {
@@ -37,39 +30,14 @@ function StatusDropDown() {
 		setColumns(taskAddedColumn);
 	};
 
-	// const updateNewColumn = (removedTask) => {
-
-	// 	const updatedColumn = columns.map((col, i) => {
-	// 		return {
-	// 			...col,
-	// 			tasks: [
-	// 				...col.tasks,
-	// 				col.name === targetColumn
-	// 					? (col.tasks[i] = removedTask)
-	// 					: null,
-	// 			],
-	// 		};
-	// 	});
-
-	// 	setColumns(updatedColumn);
-	// };
-
 	const getSelectedOption = (e) => {
 		const selectedStatus = e.target.value;
 		setCurrentStatus(selectedStatus);
 
-		let copiedSelectedTask = selectedTask;
-		let currentColumn = {};
-
-		columns.map((c) =>
-			c.name === currentStatus ? (currentColumn = c) : null
-		);
-
 		const removedTask = selectedTask;
 		removedTask.status = selectedStatus;
 
-		removeTaskFromCurrentColumn(removedTask);
-		// updateNewColumn(removedTask);
+		updateCurrentColumn(removedTask);
 	};
 
 	return (
