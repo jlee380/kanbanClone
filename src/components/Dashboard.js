@@ -39,6 +39,7 @@ function Dashboard() {
 															col.name),
 														(item.index = i)
 													);
+
 													setIsModalOpen("view_task");
 												}}>
 												{item.title}

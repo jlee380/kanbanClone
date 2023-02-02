@@ -66,7 +66,6 @@ const CheckBox = ({ className, subTask, subTasks, setSubTasks }) => {
 	const [checked, setChecked] = useState(false);
 
 	useEffect(() => {
-		console.log(subTask, subTasks);
 		if (subTask.isCompleted) {
 			setChecked(true);
 		}
@@ -79,7 +78,7 @@ const CheckBox = ({ className, subTask, subTasks, setSubTasks }) => {
 		subTasks.map((sub, i) =>
 			sub.title === title ? updateSubTasks(sub, i, check) : null
 		);
-	}, []);
+	}, [checked]);
 
 	const isCheckedChecked = (e) => {
 		setChecked(e.target.checked);
