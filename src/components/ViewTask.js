@@ -65,16 +65,7 @@ function ViewTask() {
 	useEffect(() => {
 		setSubTasks(selectedTask.subtasks);
 		setCompletedTasks(subTasks.filter((sub) => sub.isCompleted === true));
-
-		// console.log(
-		// 	"completedTask:",
-		// 	completedTasks,
-		// 	"subTasks:",
-		// 	subTasks,
-		// 	"selectedTask:",
-		// 	selectedTask
-		// );
-	}, [subTasks]);
+	}, [subTasks, selectedTask.subtasks, setCompletedTasks]);
 
 	return (
 		<>

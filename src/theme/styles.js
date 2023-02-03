@@ -11,6 +11,7 @@ export const COLORS = {
 	GRAYDARK: "#2B2C37",
 	GRAYLIGHTDART: "#3E3F4E",
 	MEDIUMGRAY: "#828FA3",
+	LIGHTGRAY: "#F4F7FD",
 };
 
 export const HEADINGS = {
