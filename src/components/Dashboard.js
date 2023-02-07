@@ -4,14 +4,35 @@ import { BoardContext } from "../App";
 
 import { COLORS } from "../theme/styles";
 
+const Wrapper = styled.div`
+	flex: 1 1 auto;
+	min-width: 0;
+`;
 const DashboardContainer = styled.div`
 	display: flex;
+
+	overflow-x: auto;
+
 	background: ${COLORS.LIGHTGRAY};
+`;
+
+const OvalAndColContainer = styled.div`
+	display: flex;
 `;
 
 const Col = styled.div`
 	padding: 2.3rem 0 2.3rem 2.3rem;
 	width: 28rem;
+`;
+
+const Oval = styled.div`
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-top: 0.2rem;
+
+	border-radius: 50%;
+
+	background: ${(props) => props.color};
 `;
 
 const ColNameAndCount = styled.h4`
@@ -73,6 +94,8 @@ const AddNewColumn = styled.p`
 	cursor: pointer;
 `;
 
+const colors = ["#96ceb4", "#ffeead", "#ff6f69", "#ffcc5c", "#88d8b0"];
+
 function Dashboard() {
 	const { setIsModalOpen, setSelectedTask, columns } =
 		useContext(BoardContext);
@@ -81,42 +104,50 @@ function Dashboard() {
 
 	return (
 		<>
-			<DashboardContainer>
-				{columns
-					? columns.map((col, colId) => (
-							<Col key={colId}>
-								<ColNameAndCount>
-									{col.name} {`(${col.tasks.length})`}
-								</ColNameAndCount>
-								<Ul>
-									{col.tasks.map((item, i) =>
-										item ? (
-											<Li
-												key={i}
-												onClick={() => {
-													setSelectedTask(
-														item,
-														(item.key = colId),
-														(item.status =
-															col.name),
-														(item.index = i)
-													);
+			<Wrapper>
+				<DashboardContainer>
+					{columns
+						? columns.map((col, colId) => (
+								<Col key={colId}>
+									<OvalAndColContainer>
+										<Oval color={colors[colId]} />
+										<ColNameAndCount>
+											{col.name} {`(${col.tasks.length})`}
+										</ColNameAndCount>
+									</OvalAndColContainer>
 
-													setIsModalOpen("view_task");
-												}}>
-												<Title>{item.title}</Title>
-												<SubtaskCounter>{`0 of 6 subtasks`}</SubtaskCounter>
-											</Li>
-										) : null
-									)}
-								</Ul>
-							</Col>
-					  ))
-					: null}
-				<NewColumnContainer>
-					<AddNewColumn>+ NEW COLUMN</AddNewColumn>
-				</NewColumnContainer>
-			</DashboardContainer>
+									<Ul>
+										{col.tasks.map((item, i) =>
+											item ? (
+												<Li
+													key={i}
+													onClick={() => {
+														setSelectedTask(
+															item,
+															(item.key = colId),
+															(item.status =
+																col.name),
+															(item.index = i)
+														);
+
+														setIsModalOpen(
+															"view_task"
+														);
+													}}>
+													<Title>{item.title}</Title>
+													<SubtaskCounter>{`0 of 6 subtasks`}</SubtaskCounter>
+												</Li>
+											) : null
+										)}
+									</Ul>
+								</Col>
+						  ))
+						: null}
+					<NewColumnContainer>
+						<AddNewColumn>+ NEW COLUMN</AddNewColumn>
+					</NewColumnContainer>
+				</DashboardContainer>
+			</Wrapper>
 		</>
 	);
 }

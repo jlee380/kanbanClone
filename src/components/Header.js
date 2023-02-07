@@ -11,7 +11,12 @@ import { BoardContext } from "../App";
 
 const HeaderContainer = styled.div`
 	display: flex;
-	background-color: ${(props) => props.theme.background.grayDark};
+
+	// position: sticky;
+	// top: 0;
+	// left: 0;
+
+	background-color: white;
 `;
 
 const LeftContainer = styled.div`
@@ -34,9 +39,6 @@ const RightContainer = styled.div`
 	align-items: center;
 	flex-grow: 1;
 	justify-content: space-between;
-
-	// & :nth-child(3) {
-	// }
 
 	border: 0.1rem solid;
 `;

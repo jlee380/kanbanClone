@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import IconBoards from "../assets/icon-board.svg";
 
 import styled from "styled-components";
+
+import { COLORS } from "../theme/styles";
+import { BoardContext } from "../App";
 
 const Ul = styled.ul`
 	display: flex;
@@ -11,11 +14,14 @@ const Ul = styled.ul`
 	span {
 		margin-left: 3.2rem;
 	}
-
-	border: 0.1rem solid;
 `;
 
-const BoardsNum = styled.p``;
+const BoardsNum = styled.p`
+	margin-left: 3.2rem;
+	margin-bottom: 1.9rem;
+
+	color: ${COLORS.MEDIUMGRAY};
+`;
 
 const IconAndText = styled.a`
 	display: flex;
@@ -31,21 +37,36 @@ const IconAndText = styled.a`
 	cursor: grab;
 
 	&:hover {
-		background: #f4f7fd !important;
+		background: ${COLORS.LIGHTGRAY};
 	}
+
+	background: ${(props) =>
+		props.selected === props.index
+			? `${COLORS.MAINPURPLE} !important`
+			: "transparent"};
 
 	&:hover li {
-		color: #635fc7;
+		color: ${(props) =>
+			props.selected === props.index
+				? `${COLORS.WHITE}`
+				: `${COLORS.MAINPURPLE}`};
 	}
+`;
 
-	background: ${(props) => (props.active ? "#635fc7" : "transparent")};
+const AddBoard = styled(IconAndText)`
+	li {
+		color: ${COLORS.MAINPURPLE};
+	}
 `;
 
 const Li = styled.li`
 	font-size: 1.5rem;
 	line-height: 1.9rem;
 
-	color: ${(props) => (props.primary ? "#635fc7" : "#828fa3")};
+	color: ${(props) =>
+		props.selected === props.index
+			? `${COLORS.WHITE}`
+			: `${COLORS.MEDIUMGRAY}`};
 `;
 
 const IconBoard = styled.span`
@@ -58,7 +79,14 @@ const BoardDiv = styled.div`
 	margin-left: -1.6rem;
 `;
 
-function BoardsList({ setActive, active, addBoard, boards }) {
+function BoardsList({ addBoard, boards }) {
+	const { active } = useContext(BoardContext);
+	const [selected, setSelected] = useState(null);
+
+	useEffect(() => {
+		setSelected(active.toString());
+	}, [active]);
+
 	const boardNum = boards.length;
 	return (
 		<>
@@ -66,37 +94,29 @@ function BoardsList({ setActive, active, addBoard, boards }) {
 				<BoardsNum>{`ALL BOARDS (${boardNum})`}</BoardsNum>
 				{boards.map((board, i) => (
 					<IconAndText
-						onClick={() => setActive(i)}
-						active={active}
-						style={{
-							backgroundColor:
-								active === i ? "#635fc7" : "transparent",
-						}}
+						onClick={() => setSelected(i.toString())}
+						selected={selected}
+						index={i.toString()}
 						key={`${i}`}>
 						<IconBoard
 							key={`${i}`}
-							onClick={() => setActive(i)}
-							style={{
-								stroke: active === i ? "white" : "transparent",
-							}}
+							onClick={() => setSelected(i.toString())}
 						/>
 						<Li
 							key={`${board.name}_${i}`}
-							onClick={() => setActive(i)}
-							// style={{
-							// 	color: active === i ? "white" : "",
-							// }}
-						>
+							onClick={() => setSelected(i.toString())}
+							selected={selected}
+							index={i.toString()}>
 							<BoardDiv>{board.name}</BoardDiv>
 						</Li>
 					</IconAndText>
 				))}
-				<IconAndText>
+				<AddBoard index="no">
 					<IconBoard />
 					<Li primary onClick={() => addBoard()}>
 						<BoardDiv>+ CREATE NEW BOARDS</BoardDiv>
 					</Li>
-				</IconAndText>
+				</AddBoard>
 			</Ul>
 		</>
 	);

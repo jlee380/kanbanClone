@@ -9,18 +9,22 @@ import DarkModeBar from "./DarkModeBar";
 import { useContext } from "react";
 import { BoardContext } from "../App";
 
+import { COLORS } from "../theme/styles";
+
+const Wrapper = styled.div``;
+
 const SideBarContainer = styled.div`
 	display: flex;
 	display: ${(props) => (props.toggleSidebar ? "" : "none")};
+
+	// left: 0;
 
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: space-between;
 	padding-top: 4rem;
 
-	background-color: ${(props) => props.theme.background.grayDark};
-
-	border-right: 1px solid;
+	background-color: ${COLORS.WHITE};
 `;
 
 const SwitchAndHide = styled.div`
@@ -33,23 +37,12 @@ const SwitchAndHide = styled.div`
 `;
 
 const SideBar = () => {
-	const {
-		toggleSidebar,
-		setToggleSidebar,
-		addBoard,
-		boards,
-		active,
-		setActive,
-	} = useContext(BoardContext);
+	const { toggleSidebar, setToggleSidebar, addBoard, boards } =
+		useContext(BoardContext);
 	return (
 		<>
 			<SideBarContainer toggleSidebar={toggleSidebar}>
-				<BoardsList
-					setActive={setActive}
-					active={active}
-					addBoard={addBoard}
-					boards={boards}
-				/>
+				<BoardsList addBoard={addBoard} boards={boards} />
 				<SwitchAndHide>
 					<DarkModeBar />
 					<HideSidebar
