@@ -12,10 +12,6 @@ import { BoardContext } from "../App";
 const HeaderContainer = styled.div`
 	display: flex;
 
-	// position: sticky;
-	// top: 0;
-	// left: 0;
-
 	background-color: white;
 `;
 
@@ -40,7 +36,7 @@ const RightContainer = styled.div`
 	flex-grow: 1;
 	justify-content: space-between;
 
-	border: 0.1rem solid;
+	// border: 0.1rem solid;
 `;
 
 const SelectedBoardName = styled.div`

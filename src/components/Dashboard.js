@@ -5,13 +5,13 @@ import { BoardContext } from "../App";
 import { COLORS } from "../theme/styles";
 
 const Wrapper = styled.div`
-	flex: 1 1 auto;
-	min-width: 0;
+	// flex: 1 1 auto;
+	// min-width: 0;
 `;
 const DashboardContainer = styled.div`
 	display: flex;
 
-	overflow-x: auto;
+	// overflow-x: auto;
 
 	background: ${COLORS.LIGHTGRAY};
 `;
@@ -97,11 +97,9 @@ const AddNewColumn = styled.p`
 const colors = ["#96ceb4", "#ffeead", "#ff6f69", "#ffcc5c", "#88d8b0"];
 
 function Dashboard() {
-	const { setIsModalOpen, setSelectedTask, columns } =
+	const { setIsModalOpen, setSelectedTask, columns, completedTasks } =
 		useContext(BoardContext);
-
-	useEffect(() => {}, []);
-
+	console.log(columns);
 	return (
 		<>
 			<Wrapper>
@@ -135,7 +133,23 @@ function Dashboard() {
 														);
 													}}>
 													<Title>{item.title}</Title>
-													<SubtaskCounter>{`0 of 6 subtasks`}</SubtaskCounter>
+
+													<SubtaskCounter>
+														{`Subtasks `}
+														{
+															item.subtasks.filter(
+																(sub) =>
+																	sub.isCompleted ===
+																	true
+															).length
+														}
+														{` of `}
+														{
+															item.subtasks.filter(
+																(sub) => sub
+															).length
+														}
+													</SubtaskCounter>
 												</Li>
 											) : null
 										)}
