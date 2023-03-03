@@ -40,8 +40,6 @@ const SubTaskCount = styled.div`
 	color: ${COLORS.MEDIUMGRAY};
 `;
 
-const ListOfSubTasks = styled.div``;
-
 const SubTask = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -70,6 +68,7 @@ function ViewTask() {
 	}, [subTasks, selectedTask.subtasks, setCompletedTasks]);
 
 	return (
+		// REFACTORING <CheckBox />
 		<>
 			<TitleAndEditContainer>
 				<TaskTitle>{selectedTask.title}</TaskTitle>
@@ -77,24 +76,22 @@ function ViewTask() {
 			</TitleAndEditContainer>
 			<Description>{selectedTask.description}</Description>
 			<SubTaskContainer>
-				<SubTaskCount>{`SubTasks ${completedTasks.length} of ${subTasks.length}`}</SubTaskCount>
-				<ListOfSubTasks>
-					<SubTask>
-						{subTasks ? (
-							subTasks.map((subTask, i) => (
-								<Label key={i}>
-									<CheckBox
-										subTask={subTask}
-										subTasks={subTasks}
-										setSubTasks={setSubTasks}
-									/>
-								</Label>
-							))
-						) : (
-							<div>Loading...</div>
-						)}
-					</SubTask>
-				</ListOfSubTasks>
+				<SubTaskCount>{`SubTasks (${completedTasks.length} of ${subTasks.length})`}</SubTaskCount>
+				<SubTask>
+					{subTasks ? (
+						subTasks.map((subTask, i) => (
+							<Label key={i}>
+								<CheckBox
+									subTask={subTask}
+									subTasks={subTasks}
+									setSubTasks={setSubTasks}
+								/>
+							</Label>
+						))
+					) : (
+						<div>Loading...</div>
+					)}
+				</SubTask>
 			</SubTaskContainer>
 			<StatusContainer>
 				<StatusHeading>Current Status</StatusHeading>

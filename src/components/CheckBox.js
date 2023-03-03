@@ -8,6 +8,14 @@ import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
 
 const CheckboxContainer = styled.div`
 	display: flex;
+	align-items: center;
+	padding: 1.3rem;
+	font-size: 12px;
+	line-height: 15px;
+	border-radius: 4px;
+
+	background: ${COLORS.LIGHTGRAY};
+	color: ${(props) => (props.checked ? COLORS.MEDIUMGRAY : COLORS.BLACK)};
 `;
 
 const Icon = styled.span`
@@ -96,7 +104,7 @@ const CheckBox = ({ className, subTask, subTasks, setSubTasks }) => {
 
 	return (
 		<>
-			<CheckboxContainer className={className}>
+			<CheckboxContainer className={className} checked={checked}>
 				<HiddenCheckbox checked={checked} onChange={isCheckedChecked} />
 				<StyledCheckbox checked={checked} onChange={isCheckedChecked}>
 					<Icon />
