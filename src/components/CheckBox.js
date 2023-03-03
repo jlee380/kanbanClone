@@ -28,11 +28,11 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
 	position: absolute;
 	white-space: nowrap;
 	width: 1px;
-	flex-shrink: 1;
 `;
 
 const StyledCheckbox = styled.div`
 	display: flex;
+	flex: 0 0 auto;
 	justify-content: center;
 	align-items: center;
 	width: 1.6rem;
@@ -65,12 +65,14 @@ const CheckBox = ({ className, subTask, subTasks, setSubTasks }) => {
 
 	const [checked, setChecked] = useState(false);
 
+	// REFACTORING
 	useEffect(() => {
 		if (subTask.isCompleted) {
 			setChecked(true);
 		}
 	}, []);
 
+	// REFACTORING
 	useEffect(() => {
 		let check = true;
 		checked ? (check = true) : (check = false);

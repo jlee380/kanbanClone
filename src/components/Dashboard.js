@@ -56,6 +56,11 @@ const Li = styled.li`
 	display: flex;
 	flex-direction: column;
 	gap: 0.8rem;
+
+	&:hover {
+		color: ${COLORS.MAINPURPLE};
+		cursor: pointer;
+	}
 `;
 
 const Title = styled.p``;
@@ -97,9 +102,8 @@ const AddNewColumn = styled.p`
 const colors = ["#96ceb4", "#ffeead", "#ff6f69", "#ffcc5c", "#88d8b0"];
 
 function Dashboard() {
-	const { setIsModalOpen, setSelectedTask, columns, completedTasks } =
+	const { setIsModalOpen, setSelectedTask, columns } =
 		useContext(BoardContext);
-	console.log(columns);
 	return (
 		<>
 			<Wrapper>

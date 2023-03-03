@@ -18,6 +18,7 @@ const TaskTitle = styled.h3`
 `;
 
 const EditButton = styled.span`
+	flex: 0 0 auto;
 	background-image: url(${IconDots});
 	width: 0.5rem;
 	height: 2rem;
@@ -62,6 +63,7 @@ function ViewTask() {
 		useContext(BoardContext);
 	const [subTasks, setSubTasks] = useState(selectedTask.subtasks);
 
+	// REFACTORING
 	useEffect(() => {
 		setSubTasks(selectedTask.subtasks);
 		setCompletedTasks(subTasks.filter((sub) => sub.isCompleted === true));
