@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { BoardContext } from "../App";
+import CreateNewBoard from "./Forms/CreateNewBoard";
 import AddNewTask from "./Forms/AddNewTask";
 import ViewTask from "./ViewTask";
 
@@ -36,10 +37,13 @@ function Modal() {
 	return (
 		<Overlay>
 			<ModalContainer>
-				{isModalOpen === "view_task" ? (
+				{isModalOpen === "view_task" && (
 					<ViewTask boards={boards} active={active} />
-				) : null}
-				{isModalOpen === "add_new_task" ? <AddNewTask /> : null}
+				)}
+				{isModalOpen === "add_new_task" && <AddNewTask />}
+				{isModalOpen === "create_new_board" && (
+					<CreateNewBoard boards={boards} active={active} />
+				)}
 			</ModalContainer>
 		</Overlay>
 	);

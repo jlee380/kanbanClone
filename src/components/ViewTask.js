@@ -53,6 +53,7 @@ const StatusContainer = styled.div``;
 const StatusHeading = styled.div`
 	font-size: 1.2rem;
 	line-height: 1.5rem;
+	margin-bottom: 0.8rem;
 	color: ${COLORS.MEDIUMGRAY};
 `;
 

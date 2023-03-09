@@ -50,9 +50,10 @@ function App() {
 	const [columns, setColumns] = useState([]);
 
 	const addBoard = () => {
-		const newBoardList = [...boards];
-		newBoardList.push({ name: "new one", columns: [1, 2, 3] });
-		setBoards(newBoardList);
+		setIsModalOpen("create_new_board");
+		// const newBoardList = [...boards];
+		// newBoardList.push({ name: "new one", columns: [1, 2, 3] });
+		// setBoards(newBoardList);
 	};
 
 	useEffect(() => {
@@ -88,7 +89,7 @@ function App() {
 						{isModalOpen ? <Modal /> : null}
 						<MainApp>
 							<Header />
-							<SideBar />
+							<SideBar addBoard={addBoard} />
 							<Dashboard />
 							<UnhideButton />
 						</MainApp>

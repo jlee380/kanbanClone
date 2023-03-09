@@ -1,9 +1,22 @@
 import { useState, useContext } from "react";
 import { BoardContext } from "../App";
+import { COLORS } from "../theme/styles";
+import styled from "styled-components";
+
+const DropdownContainer = styled.div``;
+
+const Select = styled.select`
+	width: 100%;
+	position: relative;
+	padding: 0.8rem;
+	background: white;
+
+	border-color: ${COLORS.LINECOLOR};
+	border-radius: 0.4rem;
+`;
 
 function StatusDropDown() {
 	const { selectedTask, columns, setColumns } = useContext(BoardContext);
-
 	const [currentStatus, setCurrentStatus] = useState(selectedTask.status);
 
 	const updateCurrentColumn = (removedTask) => {
@@ -41,7 +54,7 @@ function StatusDropDown() {
 	};
 
 	return (
-		<select value={currentStatus} onChange={getSelectedOption}>
+		<Select value={currentStatus} onChange={getSelectedOption}>
 			{columns
 				? columns.map((column, i) => (
 						<option key={i} value={column.name}>
@@ -49,7 +62,7 @@ function StatusDropDown() {
 						</option>
 				  ))
 				: null}
-		</select>
+		</Select>
 	);
 }
 

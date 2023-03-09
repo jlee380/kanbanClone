@@ -36,8 +36,8 @@ const SwitchAndHide = styled.div`
 	border: 1px solid;
 `;
 
-const SideBar = () => {
-	const { toggleSidebar, setToggleSidebar, addBoard, boards } =
+const SideBar = ({ addBoard }) => {
+	const { toggleSidebar, setToggleSidebar, boards } =
 		useContext(BoardContext);
 	return (
 		<>

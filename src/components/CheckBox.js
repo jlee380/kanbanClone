@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { COLORS } from "../theme/styles";
 import IconCheck from "../assets/icon-check.svg";
 import { BoardContext } from "../App";
-import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
 
 const CheckboxContainer = styled.div`
 	display: flex;
@@ -13,6 +12,11 @@ const CheckboxContainer = styled.div`
 	font-size: 12px;
 	line-height: 15px;
 	border-radius: 4px;
+	cursor: pointer;
+
+	&:hover {
+		background: ${COLORS.HOVERPURPPLE};
+	}
 
 	background: ${COLORS.LIGHTGRAY};
 	color: ${(props) => (props.checked ? COLORS.MEDIUMGRAY : COLORS.BLACK)};
