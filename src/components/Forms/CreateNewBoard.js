@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { COLORS } from "../../theme/styles";
 import { BoardContext } from "../../App";
 import IconCrossSvg from "../../assets/icon-cross.svg";
 import Button from "../Button";
+import TextError from "./TextError";
 
 const AddNewBoardContainer = styled.div``;
 const Title = styled.h2``;
@@ -58,7 +59,7 @@ const Input = styled(Field)`
 		`};
 `;
 
-const IconCross = styled.span`
+const IconCross = styled.button`
 	background-image: url(${IconCrossSvg});
 	display: block;
 	width: 1.6rem;
@@ -69,6 +70,8 @@ function CreateNewBoard() {
 	const { columns } = useContext(BoardContext);
 	const columnNames = columns.map((c) => c.name);
 
+	const [formValues, setFromValues] = useState(columnNames);
+
 	const initialValues = {
 		boardName: "",
 		existingColumns: columnNames,
@@ -76,7 +79,7 @@ function CreateNewBoard() {
 
 	const validationSchema = yup.object().shape({
 		boardName: yup.string().required("Can't be empty"),
-		existingColumns: yup.array().min(1, "Minimum 1"),
+		existingColumns: yup.array().required("Required"),
 	});
 
 	function onSubmit(values) {
@@ -100,12 +103,6 @@ function CreateNewBoard() {
 					}) => {
 						return (
 							<Form>
-								{console.log(
-									"touched",
-									touched,
-									"error",
-									errors
-								)}
 								<Title>Add New Board</Title>
 								<BoardNameContainer>
 									<InputContainer className="form-control">
@@ -138,29 +135,51 @@ function CreateNewBoard() {
 										columns={columns}>
 										Columns
 									</Label>
-									{columns.map((column) => {
-										return (
-											<InputDeleteContainer>
-												<Input
-													id="existingColumns"
-													name="existingColumns"
-													valid={
-														touched.existingColumns &&
-														!errors.existingColumns
-													}
-													error={
-														touched.existingColumns &&
-														errors.existingColumns
-													}
-													value={column.name}
-												/>
-												<IconCross />
-											</InputDeleteContainer>
-										);
-									})}
-									<BoardButton column="column">
-										+ Add New Column
-									</BoardButton>
+									<FieldArray
+										name="existingColumns"
+										render={(arrayHelper) => (
+											<div>
+												{values.existingColumns &&
+												values.existingColumns.length >=
+													0
+													? values.existingColumns.map(
+															(column, i) => {
+																return (
+																	<InputDeleteContainer
+																		key={i}>
+																		<Input
+																			id="existingColumns"
+																			name="existingColumns"
+																			$valid={
+																				touched.existingColumns &&
+																				!errors.existingColumns
+																			}
+																			error={
+																				touched.existingColumns &&
+																				errors.existingColumns
+																			}
+																			value={
+																				column
+																			}
+																		/>
+																		<IconCross />
+																		<ErrorMessage
+																			name="existingColumns"
+																			component={
+																				TextError
+																			}
+																		/>
+																	</InputDeleteContainer>
+																);
+															}
+													  )
+													: null}
+												<BoardButton column="column">
+													+ Add New Column
+												</BoardButton>
+											</div>
+										)}
+									/>
 								</ColumnsContainer>
 								<BoardButton>Create New Board</BoardButton>
 							</Form>
