@@ -91,8 +91,8 @@ function CreateNewBoard() {
 				<Formik
 					initialValues={initialValues}
 					validationSchema={validationSchema}
-					onSubmit={onSubmit}>
-					{({
+					onSubmit={onSubmit}
+					render={({
 						values,
 						errors,
 						touched,
@@ -100,92 +100,105 @@ function CreateNewBoard() {
 						isSubmitting,
 						validating,
 						valid,
-					}) => {
-						return (
-							<Form>
-								<Title>Add New Board</Title>
-								<BoardNameContainer>
-									<InputContainer className="form-control">
-										<Label htmlFor="boardName">Name</Label>
-										<Input
-											placeholder="e.g. Web Design"
-											id="boardName"
-											name="boardName"
-											valid={
-												touched.boardName &&
-												!errors.boardName
-											}
-											error={
-												touched.boardName &&
-												errors.boardName
-											}
-										/>
-										{/* <ErrorMessage name={name} component={TextError} /> */}
-									</InputContainer>
-									{/* <FormikControl
-								control="input"
-								type="text"
-								label="Name"
-								name="boardName"
-							/> */}
-								</BoardNameContainer>
-								<ColumnsContainer className="form-control">
-									<Label
-										htmlFor="existingColumns"
-										columns={columns}>
-										Columns
-									</Label>
+					}) => (
+						<Form>
+							<Title>Add New Board</Title>
+							<BoardNameContainer>
+								<InputContainer>
 									<FieldArray
-										name="existingColumns"
+										name="boardName"
+										id="boardName"
 										render={(arrayHelper) => (
-											<div>
-												{values.existingColumns &&
-												values.existingColumns.length >=
-													0
-													? values.existingColumns.map(
-															(column, i) => {
-																return (
-																	<InputDeleteContainer
-																		key={i}>
-																		<Input
-																			id="existingColumns"
-																			name="existingColumns"
-																			$valid={
-																				touched.existingColumns &&
-																				!errors.existingColumns
-																			}
-																			error={
-																				touched.existingColumns &&
-																				errors.existingColumns
-																			}
-																			value={
-																				column
-																			}
-																		/>
-																		<IconCross />
-																		<ErrorMessage
-																			name="existingColumns"
-																			component={
-																				TextError
-																			}
-																		/>
-																	</InputDeleteContainer>
-																);
-															}
+											<>
+												{values.boardName &&
+												values.boardName.length > 0
+													? values.boardName.map(
+															(boardN, i) => (
+																<React.Fragment
+																	key={i}>
+																	<Label htmlFor="boardName">
+																		Name
+																	</Label>
+																	<Input
+																		placeholder="e.g. Web Design"
+																		id="boardName"
+																		valid={
+																			touched.boardName &&
+																			!errors.boardName
+																		}
+																		error={
+																			touched.boardName &&
+																			errors.boardName
+																		}
+																	/>
+																</React.Fragment>
+															)
 													  )
 													: null}
-												<BoardButton column="column">
-													+ Add New Column
-												</BoardButton>
-											</div>
+											</>
 										)}
 									/>
-								</ColumnsContainer>
-								<BoardButton>Create New Board</BoardButton>
-							</Form>
-						);
-					}}
-				</Formik>
+								</InputContainer>
+							</BoardNameContainer>
+							<ColumnsContainer>
+								<Label
+									htmlFor="existingColumns"
+									columns={columns}>
+									Columns
+								</Label>
+								<FieldArray
+									id="existingColumns"
+									name="existingColumns"
+									render={(arrayHelper2) => (
+										<>
+											{values.existingColumns &&
+											values.existingColumns.length >= 0
+												? values.existingColumns.map(
+														(column, i) => {
+															return (
+																<InputDeleteContainer
+																	key={i}>
+																	<Input
+																		id={
+																			column
+																		}
+																		name={`existingColumns.${i}`}
+																		$valid={
+																			touched.column &&
+																			!errors.column
+																		}
+																		error={
+																			touched.column &&
+																			errors.column
+																		}
+																	/>
+
+																	<IconCross />
+																	<ErrorMessage
+																		name="existingColumns"
+																		component={
+																			TextError
+																		}
+																	/>
+																</InputDeleteContainer>
+															);
+														}
+												  )
+												: null}
+											<BoardButton
+												column="column"
+												onClick={() =>
+													arrayHelper2.push()
+												}>
+												+ Add New Column
+											</BoardButton>
+										</>
+									)}
+								/>
+							</ColumnsContainer>
+							<BoardButton>Create New Board</BoardButton>
+						</Form>
+					)}></Formik>
 			</AddNewBoardContainer>
 		</>
 	);
