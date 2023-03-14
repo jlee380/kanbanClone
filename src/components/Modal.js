@@ -4,6 +4,7 @@ import { BoardContext } from "../App";
 import CreateNewBoard from "./Forms/CreateNewBoard";
 import AddNewTask from "./Forms/AddNewTask";
 import ViewTask from "./ViewTask";
+import Testing from "./Forms/Testing";
 
 const Overlay = styled.div`
 	position: fixed;

@@ -20,6 +20,7 @@ const InputContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
+
 const Label = styled.label`
 	margin: 2.4rem 0 0.8rem 0;
 `;
@@ -69,7 +70,8 @@ const IconCross = styled.button`
 `;
 
 function CreateNewBoard() {
-	const { columns } = useContext(BoardContext);
+	const { columns, setBoards, boards, setIsModalOpen } =
+		useContext(BoardContext);
 	const columnNames = columns.map((c) => c.name);
 	const currentColumnLen = columnNames.length;
 
@@ -77,7 +79,7 @@ function CreateNewBoard() {
 
 	const initialValues = {
 		boardName: "",
-		existingColumns: [...columnNames, ""],
+		existingColumns: [...columnNames],
 	};
 
 	const validationSchema = yup.object().shape({
@@ -86,11 +88,18 @@ function CreateNewBoard() {
 	});
 
 	function onSubmit(values) {
-		setTimeout(() => {
-			// alert(JSON.stringify(values, null, 2));
-			console.log(values);
-		}, 300);
+		const columns = values.existingColumns.map((c) => ({
+			name: c,
+			tasks: [],
+		}));
+
+		setBoards([...boards, { name: values.boardName, columns }]);
+		setIsModalOpen(null);
 	}
+
+	useEffect(() => {
+		console.log("effect", boards);
+	}, [boards]);
 	return (
 		<>
 			<AddNewBoardContainer>
@@ -112,7 +121,8 @@ function CreateNewBoard() {
 							<BoardNameContainer>
 								<InputContainer className="form-control">
 									<Label htmlFor="boardName">Name</Label>
-									{console.log("touched", touched)}
+									{/* {console.log("touched", touched)}
+									{console.log("error", errors)} */}
 									<Input
 										placeholder="e.g. Web Design"
 										// id="boardName"
@@ -151,12 +161,12 @@ function CreateNewBoard() {
 																		id={`existingColumns[${i}]`}
 																		name={`existingColumns[${i}]`}
 																		$valid={
-																			touched.column &&
-																			!errors.column
+																			touched.existingColumns &&
+																			!errors.existingColumns
 																		}
 																		error={
-																			touched.column &&
-																			errors.column
+																			touched.existingColumns &&
+																			errors.existingColumns
 																		}
 																	/>
 
