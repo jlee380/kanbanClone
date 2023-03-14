@@ -34,10 +34,11 @@ const ModalContainer = styled.div`
 `;
 
 function Modal() {
-	const { isModalOpen, boards, active } = useContext(BoardContext);
+	const { isModalOpen, setIsModalOpen, boards, active } =
+		useContext(BoardContext);
 	return (
-		<Overlay>
-			<ModalContainer>
+		<Overlay onClick={() => setIsModalOpen(null)}>
+			<ModalContainer onClick={(e) => e.stopPropagation()}>
 				{isModalOpen === "view_task" && (
 					<ViewTask boards={boards} active={active} />
 				)}
