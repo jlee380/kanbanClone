@@ -62,13 +62,14 @@ const StatusHeading = styled.div`
 function ViewTask() {
 	const { selectedTask, completedTasks, setCompletedTasks } =
 		useContext(BoardContext);
-
-	const [isPopup, setIsPopup] = useState(true);
 	const [subTasks, setSubTasks] = useState(selectedTask.subtasks);
-	// const subTasks = selectedTask.subtasks;
+	const [isPopup, setIsPopup] = useState(true);
+
+	function handlePopup() {}
 
 	// REFACTORING
 	useEffect(() => {
+		setSubTasks(selectedTask.subtasks);
 		setCompletedTasks(subTasks.filter((sub) => sub.isCompleted === true));
 	}, [subTasks, selectedTask.subtasks, setCompletedTasks]);
 
@@ -86,11 +87,13 @@ function ViewTask() {
 				<SubTask>
 					{subTasks ? (
 						subTasks.map((subTask, i) => (
-							<CheckBox
-								subTask={subTask}
-								subTasks={subTasks}
-								setSubTasks={setSubTasks}
-							/>
+							<Label key={i}>
+								<CheckBox
+									subTask={subTask}
+									subTasks={subTasks}
+									setSubTasks={setSubTasks}
+								/>
+							</Label>
 						))
 					) : (
 						<div>Loading...</div>

@@ -88,8 +88,8 @@ function CreateNewBoard() {
 	});
 
 	function onSubmit(values) {
-		const columns = values.existingColumns.map((columnName) => ({
-			name: columnName,
+		const columns = values.existingColumns.map((c) => ({
+			name: c,
 			tasks: [],
 		}));
 
@@ -97,6 +97,9 @@ function CreateNewBoard() {
 		setIsModalOpen(null);
 	}
 
+	useEffect(() => {
+		console.log("effect", boards);
+	}, [boards]);
 	return (
 		<>
 			<AddNewBoardContainer>

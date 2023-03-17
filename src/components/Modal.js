@@ -5,7 +5,6 @@ import CreateNewBoard from "./Forms/CreateNewBoard";
 import AddNewTask from "./Forms/AddNewTask";
 import ViewTask from "./ViewTask";
 import Popup from "./Popup";
-import EditTask from "./Forms/EditTask";
 
 const Overlay = styled.div`
 	position: fixed;
@@ -48,7 +47,7 @@ function Modal() {
 				{isModalOpen === "create_new_board" && (
 					<CreateNewBoard boards={boards} active={active} />
 				)}
-				{isModalOpen === "edit_task" && <EditTask />}
+				{isModalOpen === "popup" && <Popup />}
 			</ModalContainer>
 		</Overlay>
 	);
