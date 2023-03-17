@@ -4,7 +4,8 @@ import { BoardContext } from "../App";
 import CreateNewBoard from "./Forms/CreateNewBoard";
 import AddNewTask from "./Forms/AddNewTask";
 import ViewTask from "./ViewTask";
-import Testing from "./Forms/Testing";
+import Popup from "./Popup";
+import EditTask from "./Forms/EditTask";
 
 const Overlay = styled.div`
 	position: fixed;
@@ -14,7 +15,7 @@ const Overlay = styled.div`
 	right: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 100;
+	z-index: 80;
 	background-color: rgba(0, 0, 0, 0.5);
 	display: flex;
 	justify-content: center;
@@ -36,6 +37,7 @@ const ModalContainer = styled.div`
 function Modal() {
 	const { isModalOpen, setIsModalOpen, boards, active } =
 		useContext(BoardContext);
+
 	return (
 		<Overlay onClick={() => setIsModalOpen(null)}>
 			<ModalContainer onClick={(e) => e.stopPropagation()}>
@@ -46,6 +48,7 @@ function Modal() {
 				{isModalOpen === "create_new_board" && (
 					<CreateNewBoard boards={boards} active={active} />
 				)}
+				{isModalOpen === "edit_task" && <EditTask />}
 			</ModalContainer>
 		</Overlay>
 	);

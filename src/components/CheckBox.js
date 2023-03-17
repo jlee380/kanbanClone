@@ -74,7 +74,7 @@ const TitleSpan = styled.span`
 const CheckBox = ({ className, subTask, subTasks, setSubTasks }) => {
 	const title = subTask.title;
 	const { completedTasks, setCompletedTasks } = useContext(BoardContext);
-
+	console.log("completedTasks", completedTasks);
 	const [checked, setChecked] = useState(false);
 
 	// REFACTORING
@@ -82,7 +82,7 @@ const CheckBox = ({ className, subTask, subTasks, setSubTasks }) => {
 		if (subTask.isCompleted) {
 			setChecked(true);
 		}
-	}, []);
+	}, [subTask.isCompleted]);
 
 	// REFACTORING
 	useEffect(() => {
@@ -92,10 +92,16 @@ const CheckBox = ({ className, subTask, subTasks, setSubTasks }) => {
 		subTasks.map((sub, i) =>
 			sub.title === title ? updateSubTasks(sub, i, check) : null
 		);
-	}, [checked]);
+	}, [checked, subTasks]);
+
+	useEffect(() => {
+		console.log("checked", checked);
+	});
 
 	const isCheckedChecked = (e) => {
 		setChecked(e.target.checked);
+		// const
+		// setCompletedTasks()
 	};
 
 	const updateSubTasks = (sub, i, boolVal) => {

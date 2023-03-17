@@ -6,6 +6,7 @@ import { COLORS } from "../theme/styles";
 import IconDots from "../assets/icon-vertical-ellipsis.svg";
 import CheckBox from "./CheckBox";
 import StatusDropDown from "./StatusDropDown";
+import Popup from "./Popup";
 
 const TitleAndEditContainer = styled.div`
 	display: flex;
@@ -19,6 +20,7 @@ const TaskTitle = styled.h3`
 
 const EditButton = styled.span`
 	flex: 0 0 auto;
+	position: relative;
 	background-image: url(${IconDots});
 	width: 0.5rem;
 	height: 2rem;
@@ -58,13 +60,15 @@ const StatusHeading = styled.div`
 `;
 
 function ViewTask() {
-	const { selectedTask, completedTasks, setCompletedTasks, setIsModalOpen } =
+	const { selectedTask, completedTasks, setCompletedTasks } =
 		useContext(BoardContext);
+
+	const [isPopup, setIsPopup] = useState(true);
 	const [subTasks, setSubTasks] = useState(selectedTask.subtasks);
+	// const subTasks = selectedTask.subtasks;
 
 	// REFACTORING
 	useEffect(() => {
-		setSubTasks(selectedTask.subtasks);
 		setCompletedTasks(subTasks.filter((sub) => sub.isCompleted === true));
 	}, [subTasks, selectedTask.subtasks, setCompletedTasks]);
 
@@ -73,7 +77,8 @@ function ViewTask() {
 		<>
 			<TitleAndEditContainer>
 				<TaskTitle>{selectedTask.title}</TaskTitle>
-				<EditButton onClick={() => setIsModalOpen(null)} />
+				<EditButton onClick={() => setIsPopup(!isPopup)} />
+				{isPopup ? <Popup /> : null}
 			</TitleAndEditContainer>
 			<Description>{selectedTask.description}</Description>
 			<SubTaskContainer>
@@ -81,13 +86,11 @@ function ViewTask() {
 				<SubTask>
 					{subTasks ? (
 						subTasks.map((subTask, i) => (
-							<Label key={i}>
-								<CheckBox
-									subTask={subTask}
-									subTasks={subTasks}
-									setSubTasks={setSubTasks}
-								/>
-							</Label>
+							<CheckBox
+								subTask={subTask}
+								subTasks={subTasks}
+								setSubTasks={setSubTasks}
+							/>
 						))
 					) : (
 						<div>Loading...</div>

@@ -69,17 +69,15 @@ const IconCross = styled.button`
 	border: none;
 `;
 
-function CreateNewBoard() {
+function EditTask() {
 	const { columns, setBoards, boards, setIsModalOpen } =
 		useContext(BoardContext);
-	const columnNames = columns.map((c) => c.name);
-	const currentColumnLen = columnNames.length;
-
-	const [formValues, setFromValues] = useState(columnNames);
+	console.log(columns);
 
 	const initialValues = {
-		boardName: "",
-		existingColumns: [...columnNames],
+		taskTitle: "",
+		description: "",
+		existingSubtasks: [],
 	};
 
 	const validationSchema = yup.object().shape({
@@ -114,10 +112,10 @@ function CreateNewBoard() {
 						valid,
 					}) => (
 						<Form>
-							<Title>Add New Board</Title>
+							<Title>Edit Task</Title>
 							<BoardNameContainer>
 								<InputContainer className="form-control">
-									<Label htmlFor="boardName">Name</Label>
+									<Label htmlFor="boardName">Title</Label>
 									{/* {console.log("touched", touched)}
 											{console.log("error", errors)} */}
 									<Input
@@ -201,4 +199,4 @@ function CreateNewBoard() {
 	);
 }
 
-export default CreateNewBoard;
+export default EditTask;
